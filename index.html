@@ -1,0 +1,412 @@
+<div id="oracle-form-container"></div>
+<style>
+    .step-indicator {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+    .step {
+        display: flex;
+        align-items: center;
+        font-size: 14px;
+        color: #c32126;
+        cursor: pointer;
+    }
+    .step-circle {
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #c32126;
+        color: white;
+        font-weight: bold;
+        margin-right: 5px;
+    }
+    .inactive {
+        color: #f0a0a0;
+    }
+    .inactive .step-circle {
+        background-color: #f0a0a0;
+    }
+    .form-container {
+        background: white;
+        border-radius: 8px;
+        padding: 20px;
+        width: 100%;
+        max-width: 600px;
+        margin: auto;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        text-align: center;
+    }
+    .form-group {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 10px;
+        flex-wrap: wrap;
+    }
+    .form-group input, .form-group select {
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 14px;
+    }
+    .address {
+        width: 100%;
+    }
+    .email {
+        flex: 3;
+    }
+    .phone {
+        flex: 2;
+    }
+    .form-group.city-state-zip {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 10px;
+    }
+    .city {
+        flex: 2;
+    }
+    .state {
+        flex: 1;
+    }
+    .zip {
+        flex: 1;
+    }
+    .state {
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        background-color: white;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        padding: 10px;
+        font-size: 14px;
+        color: #555;
+        outline: none;
+        cursor: pointer;
+    }
+    .select-container {
+        position: relative;
+        display: inline-block;
+        flex: 1;
+    }
+    .select-container::after {
+        content: "▼";
+        font-size: 12px;
+        color: #555;
+        position: absolute;
+        right: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        pointer-events: none;
+    }
+    .state:focus {
+        border-color: #007bff;
+        box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    }
+    .next-button {
+        width: 100%;
+        padding: 12px;
+        background-color: #c32126;
+        color: white;
+        border: none;
+        border-radius: 50px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+    .next-button:hover {
+        background-color: #7c322c;
+    }
+    .form-title {
+        color: #c32126;
+        font-size: 26px;
+        font-weight: bold;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    .button-container {
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+    }
+    /* Radio Button Styles */
+    .radio-group {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        align-items: flex-start;
+        margin-bottom: 15px;
+    }
+    .radio-group label {
+        display: flex;
+        align-items: center;
+        font-size: 16px;
+        color: #333;
+        cursor: pointer;
+    }
+    .radio-group input[type="radio"] {
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        width: 20px;
+        height: 20px;
+        border: 2px solid #c32126;
+        border-radius: 50%;
+        outline: none;
+        margin-right: 8px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background-color: white;
+        transition: all 0.3s ease-in-out;
+    }
+    .radio-group input[type="radio"]:checked {
+        background-color: #c32126;
+        border: 6px solid white;
+        box-shadow: 0 0 0 2px #c32126;
+    }
+    .radio-group input[type="radio"]:focus {
+        box-shadow: 0 0 5px rgba(195, 33, 38, 0.6);
+    }
+    
+    /* Responsive styles */
+    .company-industry {
+        display: flex;
+        gap: 10px;
+    }
+    
+    .company-field, .industry-container {
+        flex: 1;
+        width: 50%;
+    }
+    
+    .industry-container select {
+        width: 100%;
+    }
+    
+    @media screen and (max-width: 768px) {
+        .form-container {
+            padding: 15px;
+        }
+        
+        /* Make most form groups stack vertically */
+        .form-group:not(.name-row):not(.city-state-zip) {
+            flex-direction: column;
+        }
+        
+        /* Make most inputs full width */
+        .form-group:not(.name-row):not(.city-state-zip) input, 
+        .form-group:not(.name-row):not(.city-state-zip) .select-container,
+        .company-field, 
+        .industry-container,
+        .city,
+        .email,
+        .phone {
+            width: 100%;
+        }
+        
+        /* Override for city-state-zip section */
+        .form-group.city-state-zip {
+            flex-direction: column;
+        }
+        
+        /* Make city full width */
+        .form-group.city-state-zip .city {
+            width: 100%;
+        }
+        
+        /* Keep state and zip on same line */
+        .form-group.city-state-zip .state-zip-row {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+            width: 100%;
+        }
+        
+        .form-group.city-state-zip .select-container,
+        .form-group.city-state-zip .zip {
+            width: 50%;
+        }
+        
+        .button-container {
+            flex-direction: column;
+        }
+    }
+    
+    @media screen and (max-width: 480px) {
+        .form-title {
+            font-size: 24px;
+        }
+        
+        .step {
+            font-size: 14px;
+        }
+        
+        .step-circle {
+            width: 20px;
+            height: 20px;
+        }
+    }
+</style>
+<div class="form-container">
+    <div class="form-title">Join our Community</div>
+    <div class="step-indicator">
+        <div class="step" onclick="showStep(1)">
+            <div class="step-circle">1</div> Step 1
+        </div>
+        <div style="width: 50px; height: 2px; background-color: #f0a0a0; margin: 0 10px;"></div>
+        <div class="step inactive" onclick="showStep(2)">
+            <div class="step-circle">2</div> Step 2
+        </div>
+        <div style="width: 50px; height: 2px; background-color: #f0a0a0; margin: 0 10px;"></div>
+        <div class="step inactive" onclick="showStep(3)">
+            <div class="step-circle">3</div> Step 3
+        </div>
+    </div>
+    <form id="oracle-form"
+        action="https://forms.zohopublic.com/mancomm1/form/Oracles/formperma/h7yKd97NU1SdcmZq7eserMCZcjeeeGBKAnQkhkKwZXE/htmlRecords/submit"
+        name="form" method="POST" accept-charset="UTF-8" enctype="multipart/form-data" onsubmit="showAllFields()">
+        <input type="hidden" name="zf_referrer_name" value="">
+        <input type="hidden" name="zf_redirect_url" value="">
+        <input type="hidden" name="zc_gad" value="">
+        <div id="step1">
+            <div class="form-group name-row">
+                <input type="text" maxlength="255" name="Name_First" placeholder="First Name*" required="" style="flex: 1;">
+                <input type="text" maxlength="255" name="Name_Last" placeholder="Last Name*" required="" style="flex: 1;">
+            </div>
+            <div class="form-group">
+                <input type="text" maxlength="255" name="Email" placeholder="Email*" class="email" required="">
+                <input type="text" name="PhoneNumber_countrycode" maxlength="20" placeholder="Phone" class="phone" required="">
+            </div>
+            <div class="form-group">
+                <input type="text" maxlength="255" name="Address_AddressLine1" placeholder="Address" class="address" required="">
+            </div>
+            <div class="form-group city-state-zip">
+                <input type="text" maxlength="255" name="Address_City" placeholder="City" class="city" required="">
+                <div class="state-zip-row">
+                    <div class="select-container">
+                        <select name="Address_Region" class="state">
+                            <option value="">State</option>
+                            <option value="AL">Alabama (AL)</option>
+                            <option value="AK">Alaska (AK)</option>
+                            <option value="AZ">Arizona (AZ)</option>
+                            <option value="AR">Arkansas (AR)</option>
+                            <option value="CA">California (CA)</option>
+                            <option value="CO">Colorado (CO)</option>
+                            <option value="CT">Connecticut (CT)</option>
+                            <option value="DE">Delaware (DE)</option>
+                            <option value="FL">Florida (FL)</option>
+                            <option value="GA">Georgia (GA)</option>
+                            <option value="HI">Hawaii (HI)</option>
+                            <option value="ID">Idaho (ID)</option>
+                            <option value="IL">Illinois (IL)</option>
+                            <option value="IN">Indiana (IN)</option>
+                            <option value="IA">Iowa (IA)</option>
+                            <option value="KS">Kansas (KS)</option>
+                            <option value="KY">Kentucky (KY)</option>
+                            <option value="LA">Louisiana (LA)</option>
+                            <option value="ME">Maine (ME)</option>
+                            <option value="MD">Maryland (MD)</option>
+                            <option value="MA">Massachusetts (MA)</option>
+                            <option value="MI">Michigan (MI)</option>
+                            <option value="MN">Minnesota (MN)</option>
+                            <option value="MS">Mississippi (MS)</option>
+                            <option value="MO">Missouri (MO)</option>
+                            <option value="MT">Montana (MT)</option>
+                            <option value="NE">Nebraska (NE)</option>
+                            <option value="NV">Nevada (NV)</option>
+                            <option value="NH">New Hampshire (NH)</option>
+                            <option value="NJ">New Jersey (NJ)</option>
+                            <option value="NM">New Mexico (NM)</option>
+                            <option value="NY">New York (NY)</option>
+                            <option value="NC">North Carolina (NC)</option>
+                            <option value="ND">North Dakota (ND)</option>
+                            <option value="OH">Ohio (OH)</option>
+                            <option value="OK">Oklahoma (OK)</option>
+                            <option value="OR">Oregon (OR)</option>
+                            <option value="PA">Pennsylvania (PA)</option>
+                            <option value="RI">Rhode Island (RI)</option>
+                            <option value="SC">South Carolina (SC)</option>
+                            <option value="SD">South Dakota (SD)</option>
+                            <option value="TN">Tennessee (TN)</option>
+                            <option value="TX">Texas (TX)</option>
+                            <option value="UT">Utah (UT)</option>
+                            <option value="VT">Vermont (VT)</option>
+                            <option value="VA">Virginia (VA)</option>
+                            <option value="WA">Washington (WA)</option>
+                            <option value="WV">West Virginia (WV)</option>
+                            <option value="WI">Wisconsin (WI)</option>
+                            <option value="WY">Wyoming (WY)</option>
+                        </select>
+                    </div>
+                    <input type="text" maxlength="255" name="Address_ZipCode" placeholder="Zip Code" class="zip" required="">
+                </div>
+            </div>
+            <button type="button" class="next-button" onclick="showStep(2)">Next</button>
+        </div>
+        <div id="step2" style="display: none;">
+            <div class="form-group">
+                <div class="form-group radio-group">
+                    <label>Please select your membership type.</label>
+                    <label><input type="radio" id="Radio_1" name="Radio" value="Customer"> Customer</label>
+                    <label><input type="radio" id="Radio_2" name="Radio" value="Preferred&#x20;Customer"> Preferred Customer</label>
+                    <label><input type="radio" id="Radio_3" name="Radio" value="Oracle"> Oracle</label>
+                </div>
+            </div>
+            <div class="button-container">
+                <button type="button" class="next-button back-button" onclick="showStep(1)">Back</button>
+                <button type="button" class="next-button" onclick="showStep(3)">Next</button>
+            </div>
+        </div>
+        <div id="step3" style="display: none;">
+            <div class="form-group company-industry">
+                <input type="text" name="SingleLine" maxlength="255" placeholder="Your Company" required="" class="company-field">
+                <div class="select-container industry-container">
+                    <select name="SingleLine1" class="state">
+                        <option value="">Your Industry</option>
+                        <option value="Commercial Trucking Companies">Commercial Trucking Companies</option>
+                        <option value="Manufacturing Companies">Manufacturing Companies</option>
+                        <option value="Construction Firms">Construction Firms</option>
+                        <option value="Transportation Providers">Transportation Providers</option>
+                        <option value="Healthcare Organizations">Healthcare Organizations</option>
+                        <option value="Energy and Utilities Companies">Energy and Utilities Companies</option>
+                        <option value="Government Agencies">Government Agencies</option>
+                    </select>
+                </div>
+            </div>
+            <div class="button-container">
+                <button type="button" class="next-button back-button" onclick="showStep(2)">Back</button>
+                <button type="submit" class="next-button">Submit</button>
+            </div>
+        </div>
+    </form>
+</div>
+<script>
+    function showStep(step) {
+        document.getElementById("step1").style.display = step === 1 ? "block" : "none";
+        document.getElementById("step2").style.display = step === 2 ? "block" : "none";
+        document.getElementById("step3").style.display = step === 3 ? "block" : "none";
+        
+        // Update indicator classes
+        const steps = document.querySelectorAll('.step');
+        steps.forEach((stepEl, index) => {
+            if (index + 1 === step) {
+                stepEl.classList.remove('inactive');
+            } else {
+                stepEl.classList.add('inactive');
+            }
+        });
+    }
+    
+    function showAllFields() {
+        // This function will ensure all fields are visible when submitting
+        document.getElementById("step1").style.display = "block";
+        document.getElementById("step2").style.display = "block";
+        document.getElementById("step3").style.display = "block";
+    }
+</script>
