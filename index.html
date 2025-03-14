@@ -6,9 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wedding Banner</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <!-- Add Abhaya Libre font -->
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Abhaya+Libre:wght@400;500;600;700;800&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rouge+Script&display=swap">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Rouge+Script&display=swap');
-
         * {
             margin: 0;
             padding: 0;
@@ -90,7 +92,7 @@
 
         .top-image,
         .bottom-image {
-            width: 300px;
+            width: 400px;
             height: auto;
             display: block;
             max-width: 95%;
@@ -230,6 +232,70 @@
             font-family: 'Playfair Display', Georgia, serif;
         }
 
+        /* Countdown styling with Abhaya Libre font */
+        #countdown-container {
+            margin: 20px 0;
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: bold;
+            font-family: 'Abhaya Libre', serif;
+            color: black;
+        }
+
+        #countdown-timer {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .countdown-unit {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .countdown-number {
+            font-family: 'Abhaya Libre', serif;
+            font-weight: 800;
+        }
+
+        .countdown-label {
+            font-family: 'Abhaya Libre', serif;
+            font-size: 1rem;
+            text-transform: uppercase;
+            font-weight: 500;
+        }
+
+        .countdown-separator {
+            align-self: center;
+            margin-bottom: 20px;
+            font-family: 'Abhaya Libre', serif;
+            font-weight: 800;
+        }
+        .image-button {
+            background: none;
+            border: none;
+            padding: 0;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            display: block;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .image-button:hover {
+            transform: scale(1.05);
+        }
+        .image-button:active {
+            transform: scale(0.95);
+        }
+
+        /* Pass image styling */
+        .pass-image {
+            width: 50px;
+            height: auto;
+            margin: 20px 0;
+        }
+
         @media (max-width: 768px) {
             .title {
                 font-size: 6rem;
@@ -248,8 +314,9 @@
             }
 
             .top-image,
-            .bottom-image {
-                width: 70%;
+            .bottom-image,
+            .pass-image {
+                width: 90%;
             }
 
             #welcome-overlay h2 {
@@ -280,7 +347,8 @@
             }
 
             .top-image,
-            .bottom-image {
+            .bottom-image,
+            .pass-image {
                 width: 85%;
             }
 
@@ -320,12 +388,19 @@
     <section class="banner-container">
         <img src="https://i.postimg.cc/Kj3RQZcY/Dise-o-sin-t-tulo-1.png" alt="Wedding Banner" class="banner-image">
         <div class="banner-overlay">
-            <img src="https://i.postimg.cc/v8rV2wnS/Agregar-un-t-tulo-6.png" alt="Wedding Monogram" class="top-image"><br>
+            <img src="https://i.postimg.cc/v8rV2wnS/Agregar-un-t-tulo-6.png" alt="Wedding Monogram"
+                class="top-image"><br>
             <img src="imagegif.gif" alt="Wedding Monogram" class="top-image"><br>
             <img src="https://i.postimg.cc/v8rV2wnS/Agregar-un-t-tulo-6.png" alt="Wedding Monogram" class="top-image">
         </div>
     </section>
-
+    <section class="banner-container">
+        <img src="https://i.postimg.cc/Kj3RQZcY/Dise-o-sin-t-tulo-1.png" alt="Wedding Banner" class="banner-image">
+        <div class="banner-overlay">
+            <img src="https://i.postimg.cc/bJWH8xgY/Agregar-un-t-tulo-7.png" alt="Wedding Monogram"
+                class="bottom-image">
+        </div>
+    </section>
     <!-- Third banner -->
     <section class="banner-container">
         <img src="https://i.postimg.cc/Kj3RQZcY/Dise-o-sin-t-tulo-1.png" alt="Wedding Banner" class="banner-image">
@@ -356,37 +431,125 @@
     <section class="banner-container">
         <img src="https://i.postimg.cc/Kj3RQZcY/Dise-o-sin-t-tulo-1.png" alt="Wedding Banner" class="banner-image">
         <div class="banner-overlay">
-            <img src="latido.gif" alt="Wedding Monogram" class="top-image">
+            <img src="latido.gif" alt="Wedding Monogram" class="top-image"><br>
             <img src="https://i.postimg.cc/J4X4YrJf/Agregar-un-t-tulo-5.png" alt="Wedding Monogram" class="top-image">
             <div class="title name" style="color: black;">Solo faltan</div>
-            <!-- Replace the countdown placeholder with this styled countdown -->
-            <!-- Replace the countdown placeholder with this styled countdown -->
-            <div id="countdown-container"
-                style="margin: 20px 0; text-align: center; font-size: 2.5rem; font-weight: bold; font-family: 'Playfair Display', Georgia, serif; color: black;">
-                <div id="countdown-timer" style="display: flex; justify-content: center; gap: 10px;">
-                    <div style="display: flex; flex-direction: column; align-items: center;">
-                        <span id="days">00</span>
-                        <span style="font-size: 1rem; text-transform: uppercase;">Días</span>
+
+            <!-- Updated countdown with Abhaya Libre font -->
+            <div id="countdown-container">
+                <div id="countdown-timer">
+                    <div class="countdown-unit">
+                        <span id="days" class="countdown-number">00</span>
+                        <span class="countdown-label">Días</span>
                     </div>
-                    <span style="align-self: center; margin-bottom: 20px;">:</span>
-                    <div style="display: flex; flex-direction: column; align-items: center;">
-                        <span id="hours">00</span>
-                        <span style="font-size: 1rem; text-transform: uppercase;">Horas</span>
+                    <span class="countdown-separator">:</span>
+                    <div class="countdown-unit">
+                        <span id="hours" class="countdown-number">00</span>
+                        <span class="countdown-label">Horas</span>
                     </div>
-                    <span style="align-self: center; margin-bottom: 20px;">:</span>
-                    <div style="display: flex; flex-direction: column; align-items: center;">
-                        <span id="minutes">00</span>
-                        <span style="font-size: 1rem; text-transform: uppercase;">Minutos</span>
+                    <span class="countdown-separator">:</span>
+                    <div class="countdown-unit">
+                        <span id="minutes" class="countdown-number">00</span>
+                        <span class="countdown-label">Minutos</span>
                     </div>
-                    <span style="align-self: center; margin-bottom: 20px;">:</span>
-                    <div style="display: flex; flex-direction: column; align-items: center;">
-                        <span id="seconds">00</span>
-                        <span style="font-size: 1rem; text-transform: uppercase;">Segundos</span>
+                    <span class="countdown-separator">:</span>
+                    <div class="countdown-unit">
+                        <span id="seconds" class="countdown-number">00</span>
+                        <span class="countdown-label">Segundos</span>
                     </div>
                 </div>
             </div>
+
             <img src="https://i.postimg.cc/sxXKfHPW/Agregar-un-t-tulo-5-Copy.png" alt="Wedding Monogram"
                 class="top-image">
+        </div>
+    </section>
+    <section class="banner-container">
+        <img src="https://i.postimg.cc/Kj3RQZcY/Dise-o-sin-t-tulo-1.png" alt="Wedding Banner" class="banner-image">
+        <div class="banner-overlay">
+            <img src="https://i.postimg.cc/v8rV2wnS/Agregar-un-t-tulo-6.png" alt="Wedding Monogram"
+                class="top-image"><br>
+            <div class="name-style">HAY MOMENTOS QUE SON ESPECIALES POR SI SOLOS, PERO COMPARTIRLOS CON LAS PERSONAS QUE
+                QUEREMOS LOS HACE INOLVIDABLES.</div><br>
+            <div class="name-style">TENEMOS EL HONOR DE INVITARLOS A CELEBRAR NUESTRA UNION.</div><br>
+            <img src="https://i.postimg.cc/v8rV2wnS/Agregar-un-t-tulo-6.png" alt="Wedding Monogram" class="top-image">
+        </div>
+    </section>
+    <section class="banner-container">
+        <img src="https://i.postimg.cc/Kj3RQZcY/Dise-o-sin-t-tulo-1.png" alt="Wedding Banner" class="banner-image">
+        <div class="banner-overlay">
+            <div class="title name" style="color: black;">Ceremonia Civil</div>
+            <img src="https://i.postimg.cc/J0XgW4bg/Agregar-un-t-tulo-8.png" alt="Wedding Monogram" class="top-image">
+            <div class="name-style">19:00 PM</div>
+            <div class="name-style">TERRAZA MAGNOLIAS</div>
+            <div class="name-style">AV. PUESTA DEL SOL # 904</div><br>
+            <img src="https://i.postimg.cc/dVN94cCT/Agregar-un-t-tulo-10.png" alt="Wedding Monogram" class="top-image">
+            <div class="name-style">20:00 PM</div>
+            <div class="name-style">TERRAZA MAGNOLIAS</div>
+            <div class="name-style">AV. PUESTA DEL SOL # 904</div><br>
+            <a href="https://maps.app.goo.gl/xmoo3TM2movCv7iE7" class="image-button">
+                <img src="ubicacion.png" alt="Wedding Monogram" class="bottom-image">
+            </a>
+        </div>
+    </section>
+    <section class="banner-container">
+        <img src="https://i.postimg.cc/Kj3RQZcY/Dise-o-sin-t-tulo-1.png" alt="Wedding Banner" class="banner-image">
+        <div class="banner-overlay">
+            <img src="https://i.postimg.cc/9fpCv1WT/Agregar-un-t-tulo-13.png" alt="Wedding Monogram"
+                class="bottom-image">
+        </div>
+    </section>
+    <section class="banner-container">
+        <img src="https://i.postimg.cc/Kj3RQZcY/Dise-o-sin-t-tulo-1.png" alt="Wedding Banner" class="banner-image">
+        <div class="banner-overlay">
+            <img src="https://i.postimg.cc/TYVdVTZC/Agregar-un-t-tulo-14.png" alt="Wedding Monogram"
+                class="bottom-image">
+        </div>
+    </section>
+    <section class="banner-container">
+        <img src="https://i.postimg.cc/Kj3RQZcY/Dise-o-sin-t-tulo-1.png" alt="Wedding Banner" class="banner-image">
+        <div class="banner-overlay">
+            <div class="name-style">Tu presencia es el mejor regalo, la asistencia es obligatoria, el regalo es
+                opcional.</div>
+            <div class="name-style">Si gustas hacernos un detalle te dejamos una sugerencia.</div>
+            <div class="title name" style="color: black;">Lluvia de sobres</div>
+            <img src="https://i.postimg.cc/zXGNgTFX/Agregar-un-t-tulo-15.png" alt="Wedding Monogram"
+                class="bottom-image">
+            <div class="name-style">Es la tradición de regalar dinero en efectivo en un sobre el día del evento.
+            </div>
+        </div>
+    </section>
+    <section class="banner-container">
+        <img src="https://i.postimg.cc/Kj3RQZcY/Dise-o-sin-t-tulo-1.png" alt="Wedding Banner" class="banner-image">
+        <div class="banner-overlay">
+            <img src="https://i.postimg.cc/yxYNxtN7/Agregar-un-t-tulo-16.png" alt="Wedding Monogram"
+                class="bottom-image">
+        </div>
+    </section>
+    <section class="banner-container">
+        <img src="https://i.postimg.cc/Kj3RQZcY/Dise-o-sin-t-tulo-1.png" alt="Wedding Banner" class="banner-image">
+        <div class="banner-overlay">
+            <div class="title name" style="color: black;">Reservamos para ti</div>
+            <div class="name-style">La siguiente cantidad de pases:</div>
+            <div id="pass-container">
+                <!-- The pass number or image will be inserted here by JavaScript -->
+            </div>
+            <div class="name-style">Tu presencia es muy importante para nosotros, favor de confirmar tu asistencia antes
+                de el 30 de Abril.</div>
+            <div class="title name" style="color: black;">Te esperamos!</div>
+            <a href="https://wa.me/523348130705?text=Confirmo%20asistencia%20de%20los%20pases%20que%20se%20reservaron%20a%20mi%20nombre%20%20." class="image-button">
+                <img src="asistencia.png" alt="Wedding Monogram" class="bottom-image">
+            </a>
+        </div>
+    </section>
+    <section class="banner-container">
+        <img src="https://i.postimg.cc/Kj3RQZcY/Dise-o-sin-t-tulo-1.png" alt="Wedding Banner" class="banner-image">
+        <div class="banner-overlay">
+            <div class="title name" style="color: black;">Fernanda & Luis</div>
+            <img src="camera.png" alt="Wedding Monogram"
+            class="bottom-image">
+            <div class="name-style">Comparte con nosotros las fotos del evento. Escanea el código y carga las fotos.</div>
+            <div class="title name" style="color: black;">Gracias!</div>
         </div>
     </section>
 
@@ -464,7 +627,7 @@
         });
     </script>
     <script>
-        // Set the wedding date - July 19, 2025 at 00:00:00 Central Mexico City time (UTC-6)
+        // Set the wedding date - July 19, 2025 at 19:00:00 Central Mexico City time (UTC-6)
         const weddingDate = new Date('2025-07-19T19:00:00-06:00').getTime();
 
         // Update the countdown every second
@@ -490,9 +653,38 @@
             // If the countdown is over, display a message
             if (timeRemaining < 0) {
                 clearInterval(countdownTimer);
-                document.getElementById('countdown-container').innerHTML = '<div style="font-family: \'Playfair Display\', Georgia, serif; color: black;">¡Hoy es el gran día!</div>';
+                document.getElementById('countdown-container').innerHTML = '<div style="font-family: \'Abhaya Libre\', serif; color: black; font-size: 2.5rem; font-weight: 800;">¡Hoy es el gran día!</div>';
             }
         }, 1000);
+
+        // Function to get URL parameters
+        function getUrlParameter(name) {
+            name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+            var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+            var results = regex.exec(location.search);
+            return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+        }
+
+        // Get the pass number from URL parameter
+        const passNumber = getUrlParameter('ps');
+        const passContainer = document.getElementById('pass-container');
+
+        // Update the pass display based on URL parameter
+        if (passNumber && !isNaN(passNumber) && passNumber >= 1 && passNumber <= 6) {
+            // Create an image element for the pass
+            const passImage = document.createElement('img');
+            passImage.src = `img${passNumber}.gif`;
+            passImage.alt = `${passNumber} Pases`;
+            passImage.className = 'pass-image';
+            passContainer.appendChild(passImage);
+        } else {
+            // Default fallback - show the number 1
+            const defaultPass = document.createElement('div');
+            defaultPass.className = 'title name';
+            defaultPass.style.color = 'black';
+            defaultPass.innerText = '1';
+            passContainer.appendChild(defaultPass);
+        }
     </script>
 </body>
 
