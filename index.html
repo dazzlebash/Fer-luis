@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wedding Banner</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Rouge+Script&display=swap');
+        
         * {
             margin: 0;
             padding: 0;
@@ -17,6 +19,20 @@
             width: 100%;
             height: 100vh;
             overflow: hidden;
+        }
+        
+        audio#background-music {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            opacity: 0.7;
+            z-index: 100;
+            border-radius: 30px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+        
+        audio#background-music:hover {
+            opacity: 1;
         }
         
         .banner-image {
@@ -48,9 +64,11 @@
         }
         
         .title {
-            font-size: 5rem;
+            font-family: 'Rouge Script', cursive;
+            font-size: 7rem;
             font-weight: 400;
             margin-bottom: 1.5rem;
+            line-height: 1.2;
         }
         
         .date {
@@ -83,9 +101,47 @@
             background-color: rgba(255, 255, 255, 0.3);
         }
         
+        #welcome-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            flex-direction: column;
+            color: white;
+            text-align: center;
+        }
+        
+        #welcome-overlay h2 {
+            font-family: 'Rouge Script', cursive;
+            font-size: 4rem;
+            margin-bottom: 2rem;
+        }
+        
+        #enter-btn {
+            padding: 15px 40px;
+            background-color: transparent;
+            color: white;
+            border: 2px solid white;
+            font-size: 1rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        #enter-btn:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        
         @media (max-width: 768px) {
             .title {
-                font-size: 3.5rem;
+                font-size: 5rem;
             }
             
             .subtitle, .date {
@@ -95,7 +151,7 @@
         
         @media (max-width: 480px) {
             .title {
-                font-size: 2.5rem;
+                font-size: 3.5rem;
             }
             
             .date {
@@ -105,17 +161,67 @@
     </style>
 </head>
 <body>
+    <div id="welcome-overlay">
+        <h2>Fernanda & Luis</h2>
+        <button id="enter-btn">Entrar</button>
+    </div>
+
     <section class="banner-container">
         <img src="https://i.postimg.cc/j5rqHzwL/R.jpg" alt="Wedding Banner" class="banner-image">
         <div class="banner-overlay">
             <p class="subtitle">Nos casamos</p>
-            <h1 class="title">Daniela & Omar</h1>
+            <h1 class="title">Fernanda & Luis</h1>
             <div class="divider"></div>
             <p class="subtitle">Acompáñanos</p>
             <div class="divider"></div>
             <p class="date">10 De Agosto De 2021</p>
             <a href="#" class="btn">Confirmar asistencia</a>
         </div>
+        <audio id="background-music" loop>
+            <source src="song.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
     </section>
+    
+    <script>
+        // Get the elements
+        const welcomeOverlay = document.getElementById('welcome-overlay');
+        const enterBtn = document.getElementById('enter-btn');
+        const backgroundMusic = document.getElementById('background-music');
+        
+        // Function to start music and remove overlay
+        function enterSite() {
+            // Play the music
+            backgroundMusic.play().catch(error => {
+                console.log('Autoplay prevented by browser:', error);
+            });
+            
+            // Hide the welcome overlay with a fade effect
+            welcomeOverlay.style.opacity = '0';
+            welcomeOverlay.style.transition = 'opacity 1s ease';
+            
+            // Remove the overlay after the transition
+            setTimeout(() => {
+                welcomeOverlay.style.display = 'none';
+            }, 1000);
+        }
+        
+        // Event listener for the enter button
+        enterBtn.addEventListener('click', enterSite);
+        
+        // Attempt autoplay on page visibility change (helps with some browsers)
+        document.addEventListener('visibilitychange', function() {
+            if (!document.hidden && welcomeOverlay.style.display === 'none') {
+                backgroundMusic.play().catch(e => {});
+            }
+        });
+        
+        // Try to play music when user interacts with the page
+        document.addEventListener('click', function() {
+            if (welcomeOverlay.style.display === 'none') {
+                backgroundMusic.play().catch(e => {});
+            }
+        });
+    </script>
 </body>
 </html>
