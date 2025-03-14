@@ -15,11 +15,28 @@
             font-family: 'Playfair Display', Georgia, serif;
         }
         
-        .banner-container {
+        body {
+            overflow-x: hidden;
+            margin: 0;
+            padding: 0;
+        }
+        
+        /* First banner - full height */
+        .banner-container-first {
             position: relative;
             width: 100%;
             height: 100vh;
             overflow: hidden;
+        }
+        
+        /* Subsequent banners - content-based height */
+        .banner-container {
+            position: relative;
+            width: 100%;
+            height: auto; /* Auto height based on content */
+            overflow: hidden;
+            margin: 0;
+            padding: 0;
         }
         
         audio#background-music {
@@ -41,31 +58,54 @@
             height: 100%;
             object-fit: cover;
             filter: brightness(0.85);
-        }
-        
-        .banner-overlay {
             position: absolute;
             top: 0;
             left: 0;
+            z-index: 1;
+        }
+        
+        .banner-overlay {
+            position: relative;
             width: 100%;
-            height: 100%;
+            z-index: 2;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
             color: white;
-            padding: 20px 0;
-            overflow: visible;
+            padding: 40px 0;
         }
         
-        .banner-overlay img {
-            max-width: 250px;
-            width: 100%;
+        /* First banner overlay needs to be absolute and full height */
+        .banner-container-first .banner-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            padding: 0;
+        }
+        
+        .top-image, .bottom-image {
+            width: 300px;
             height: auto;
-            margin-bottom: 20px;
             display: block;
-            margin-top: 40px;
+            max-width: 90%;
+        }
+        
+        .top-image {
+            margin-bottom: 20px;
+        }
+        
+        .bottom-image {
+            margin-top: 20px;
+        }
+        
+        .names-container {
+            display: flex;
+            flex-direction: column;
+            margin: 0;
+            line-height: 0.9;
         }
         
         .subtitle {
@@ -79,8 +119,14 @@
             font-family: 'Rouge Script', cursive;
             font-size: 7rem;
             font-weight: 400;
-            margin-bottom: 1.5rem;
-            line-height: 1.2;
+            margin: 0;
+            color: #8f927d;
+        }
+        
+        .name {
+            margin: 0;
+            padding-top: 5px;
+            font-size: 100px;
         }
         
         .date {
@@ -175,29 +221,62 @@
         
         @media (max-width: 768px) {
             .title {
+                font-size: 6rem;
+            }
+            
+            .name {
+                font-size: 85px;
+            }
+            
+            .subtitle {
+                font-size: 1.3rem;
+            }
+            
+            .date {
+                font-size: 1.5rem;
+            }
+            
+            .top-image, .bottom-image {
+                width: 70%;
+            }
+            
+            #welcome-overlay h2 {
                 font-size: 5rem;
             }
             
-            .subtitle, .date {
-                font-size: 1rem;
-            }
-            
-            .banner-overlay img {
-                max-width: 200px;
+            #enter-btn {
+                font-size: 1.2rem;
+                padding: 18px 45px;
             }
         }
         
         @media (max-width: 480px) {
             .title {
-                font-size: 3.5rem;
+                font-size: 5rem;
+            }
+            
+            .name {
+                font-size: 70px;
+            }
+            
+            .subtitle {
+                font-size: 1.2rem;
             }
             
             .date {
-                font-size: 1rem;
+                font-size: 1.3rem;
             }
             
-            .banner-overlay img {
-                max-width: 170px;
+            .top-image, .bottom-image {
+                width: 85%;
+            }
+            
+            #welcome-overlay h2 {
+                font-size: 4.2rem;
+            }
+            
+            #enter-btn {
+                font-size: 1.1rem;
             }
         }
     </style>
@@ -208,20 +287,74 @@
         <button id="enter-btn">Entrar</button>
     </div>
 
+    <!-- First banner - full height -->
+    <section class="banner-container-first">
+        <img src="https://i.postimg.cc/Kj3RQZcY/Dise-o-sin-t-tulo-1.png" alt="Wedding Banner" class="banner-image">
+        <div class="banner-overlay">
+            <img src="https://i.postimg.cc/vTyZ75K0/Dise-o-sin-t-tulo-3.png" alt="Wedding Monogram" class="top-image">
+            <div class="names-container">
+                <h1 class="title name">Fernanda</h1>
+                <h1 class="title name">& Luis</h1>
+            </div>
+            <img src="https://i.postimg.cc/xdxtwRQ4/Agregar-un-t-tulo.png" alt="Wedding Monogram" class="bottom-image">
+        </div>
+    </section>
+    
+    <!-- Second banner - content height -->
     <section class="banner-container">
         <img src="https://i.postimg.cc/Kj3RQZcY/Dise-o-sin-t-tulo-1.png" alt="Wedding Banner" class="banner-image">
         <div class="banner-overlay">
-            <img src="https://i.postimg.cc/vTyZ75K0/Dise-o-sin-t-tulo-3.png" alt="Wedding Monogram">
-            <h1 class="title">Fernanda & Luis</h1>
+            <img src="https://i.postimg.cc/Hx2d1n3x/Agregar-un-t-tulo-1.png" alt="Wedding Monogram" class="top-image">
         </div>
-        <div class="music-control" id="music-toggle">
-            <i class="fas fa-volume-up" id="music-icon"></i>
-        </div>
-        <audio id="background-music" loop>
-            <source src="song.mp3" type="audio/mpeg">
-            Your browser does not support the audio element.
-        </audio>
     </section>
+    
+    <!-- Third banner -->
+    <section class="banner-container">
+        <img src="https://i.postimg.cc/Kj3RQZcY/Dise-o-sin-t-tulo-1.png" alt="Wedding Banner" class="banner-image">
+        <div class="banner-overlay">
+            <img src="https://i.postimg.cc/TwYYwnKm/Agregar-un-t-tulo-1.png" alt="Wedding Monogram" class="top-image">
+            <div class="title name" style="color: black;">Save the Date</div>
+            <img src="https://i.postimg.cc/wxDgpWfP/Agregar-un-t-tulo.png" alt="Wedding Monogram" class="top-image">
+        </div>
+    </section>
+    
+    <!-- Fourth banner -->
+    <section class="banner-container">
+        <img src="https://i.postimg.cc/Kj3RQZcY/Dise-o-sin-t-tulo-1.png" alt="Wedding Banner" class="banner-image">
+        <div class="banner-overlay">
+            <img src="https://i.postimg.cc/pTtcYBfh/Agregar-un-t-tulo-2.png" alt="Wedding Monogram" class="top-image">
+            <div>Fernanda Rojas Juarez</div>
+            <div>Luis Fernando Solana Medina</div>
+            <img src="https://i.postimg.cc/HkdQ2PRC/Agregar-un-t-tulo.png" alt="Wedding Monogram" class="top-image">
+            <div>Elsa Noemi Juárez Hernández</div>
+            <div>José De Jesús Rojas Gomez</div>
+            <img src="https://i.postimg.cc/DZ9GbCLH/Agregar-un-t-tulo-1.png" alt="Wedding Monogram" class="top-image">
+            <div>Ma. De Jesús Medina Roque</div>
+            <div>Fernando Solana Alba</div>
+        </div>
+    </section>
+    
+    <!-- Fifth banner -->
+    <section class="banner-container">
+        <img src="https://i.postimg.cc/Kj3RQZcY/Dise-o-sin-t-tulo-1.png" alt="Wedding Banner" class="banner-image">
+        <div class="banner-overlay">
+            <img src="https://i.postimg.cc/W3vjFgtS/Agregar-un-t-tulo-3.png" alt="Wedding Monogram" class="top-image">
+            <img src="https://i.postimg.cc/dVYz9wJt/Agregar-un-t-tulo-4.png" alt="Wedding Monogram" class="top-image">
+            <div class="title name" style="color: black;">Solo faltan</div>
+            <div>Aqui va el contadorr</div>
+            <img src="https://i.postimg.cc/SKZ3q9CJ/Agregar-un-t-tulodown.png" alt="Wedding Monogram" class="top-image">
+        </div>
+    </section>
+    
+    <!-- Add more banner sections as needed -->
+    
+    <div class="music-control" id="music-toggle">
+        <i class="fas fa-volume-up" id="music-icon"></i>
+    </div>
+    <audio id="background-music" loop>
+        <source src="song.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
     
     <script>
         // Get the elements
